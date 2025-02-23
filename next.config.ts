@@ -1,10 +1,20 @@
 import type { NextConfig } from "next";
 
-import { i18n } from "./next-i18next.config";
-
 const nextConfig: NextConfig = {
-  /* config options here */
-  i18n,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "avatar.iran.liara.run",
+      },
+      // Add your Supabase storage if needed
+      {
+        protocol: "https",
+        hostname: "rzhbqqzzcrlprdsnthgp.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
