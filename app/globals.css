@@ -21,3 +21,10 @@ body{
     @apply bg-primary/10 text-primary;
   }
 }
+
+@media (max-width: 1023px) {
+  .mobile-adjust {
+    margin-left: 0 !important;
+    padding-top: 64px; /* Space for mobile menu button */
+  }
+}

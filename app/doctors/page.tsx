@@ -65,7 +65,7 @@ function DoctorList() {
   }
 
   return (
-    <main className="max-w-6xl h-screen mx-auto px-4 flex flex-col">
+    <div className="max-w-6xl mx-auto">
       <div className="mb-4 pt-4">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Our Medical Team</h1>
 
@@ -92,7 +92,7 @@ function DoctorList() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto pb-4">
+      <div className="flex flex-col gap-3 h-[calc(100vh-180px)] overflow-y-auto pb-10">
         {paginatedDoctors.map((doctor, index) => (
           <Link
             href={`/doctors/${doctor.id}`}
@@ -172,7 +172,7 @@ function DoctorList() {
           </button>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 

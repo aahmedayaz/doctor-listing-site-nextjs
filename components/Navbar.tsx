@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Home,
@@ -19,6 +19,16 @@ import { Button } from '@/components/ui/button';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Handle mobile layout shifts
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      '--nav-margin',
+      isOpen ? '300px' : '0'
+    );
+  }, [isOpen]);
+
+  const toggle = () => setIsOpen(!isOpen);
+
   const navItems = [
     { href: '/dashboard', icon: Home, label: 'Dashboard' },
     { href: '/doctors', icon: Stethoscope, label: 'Doctors' },
@@ -36,14 +46,14 @@ export default function Navbar() {
         <Button
           variant="outline"
           size="icon"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={toggle}
         >
           {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
       </div>
 
       {/* Sidebar */}
-      <nav className={`h-[100vh] w-[300px] bg-white shadow-xl transition-transform duration-300 lg:translate-x-0 z-40 fixed left-0 top-0 flex-shrink-0
+      <nav className={`h-[100dvh] w-[300px] bg-white shadow-xl transition-transform duration-300 lg:translate-x-0 z-40 fixed left-0 top-0
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
 
         {/* Logo */}
@@ -59,7 +69,7 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors"
-                onClick={() => setIsOpen(false)}
+                onClick={toggle}
               >
                 <item.icon className="h-5 w-5" />
                 <span className="text-sm font-medium">{item.label}</span>
@@ -81,9 +91,14 @@ export default function Navbar() {
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 lg:hidden z-30"
-          onClick={() => setIsOpen(false)}
+          onClick={toggle}
         />
       )}
+
+      {/* Main content wrapper */}
+      <div className={`min-h-screen transition-margin duration-300 ${isOpen ? 'ml-[300px]' : 'ml-0'} lg:ml-[300px]`}>
+        {/* Your existing page content */}
+      </div>
     </>
   );
 } 
